@@ -9,7 +9,11 @@ block_cipher = None
 datas = [
     ('app_icon.ico', '.'),
     ('app_icon.png', '.'),
+    ('splash.png', '.'),
+    ('splash_screen.png', '.'),
 ]
+if os.path.exists('docs'):
+    datas.append(('docs', 'docs'))
 datas += collect_data_files('statsmodels')
 datas += collect_data_files('patsy')
 
@@ -69,6 +73,16 @@ excludes = [
     'pytest',
     'pylint',
     'jedi',
+    # 대용량 미사용 머신러닝/딥러닝 프레임워크 (약 2GB+ 절약 & 빌드 초고속화)
+    'torch',
+    'torchvision',
+    'torchaudio',
+    'tensorflow',
+    'tensorflow_intel',
+    'tensorboard',
+    'keras',
+    'grpc',
+    'grpcio',
 ]
 
 a = Analysis(

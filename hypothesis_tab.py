@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
     QLineEdit, QTabWidget, QSlider, QRadioButton, QButtonGroup, QScrollArea,
     QFrame, QGridLayout
 )
-from PySide6.QtCore import Qt, QUrl
+from PySide6.QtCore import Qt, QUrl, QTimer
 from PySide6.QtGui import QDesktopServices
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -53,6 +53,12 @@ class HypothesisTab(QWidget):
         self.df = None
         self.last_test_result = None # {type, stat, p, df, alpha, dist_func, alt, etc.}
         self.updating_alpha = False
+        
+        # 유의수준 슬라이더 조작 시 부드러운 반응을 위한 디바운스 타이머
+        self.alpha_timer = QTimer(self)
+        self.alpha_timer.setSingleShot(True)
+        self.alpha_timer.timeout.connect(lambda: self.redraw_sampling_distribution(self.slider_alpha.value() / 1000.0))
+        
         self.setup_ui()
 
     def setup_ui(self):
@@ -367,7 +373,7 @@ class HypothesisTab(QWidget):
         alpha = val / 1000.0
         self.lbl_alpha_val.setText(f"{alpha:.3f} ({alpha*100:.1f}%)")
         if self.last_test_result is not None:
-            self.redraw_sampling_distribution(alpha)
+            self.alpha_timer.start(25)
 
     def on_alt_changed(self):
         self.update_hypo_preview()
@@ -1019,9 +1025,11 @@ class HypothesisTab(QWidget):
             ax2 = self.figure.add_subplot(122)
             
             d_kind = res["dist"]
+            safe_stat = float(stat) if (isinstance(stat, (int, float, np.number)) and np.isfinite(stat)) else 0.0
+            
             if d_kind == "t":
                 df = res["df"]
-                limit = max(4.5, abs(stat) + 1.2)
+                limit = min(max(4.5, abs(safe_stat) + 1.2), 20.0)
                 x = np.linspace(-limit, limit, 600)
                 y = stats.t.pdf(x, df=df)
                 df_label = f"{df:.1f}" if isinstance(df, float) else f"{df}"
@@ -1207,7 +1215,7 @@ class HypothesisTab(QWidget):
                 ax.grid(True, alpha=0.3)
                 ax.legend()
 
-        self.canvas.draw()
+        self.canvas.draw_idle()
         self.btn_export.setEnabled(True)
 
     def resizeEvent(self, event):

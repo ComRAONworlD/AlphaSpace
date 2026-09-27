@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Space Data Analytics - 통계 확률 분포 및 데이터 분석 도구 v2.1.0 공식 사용자 매뉴얼 & 인터랙티브 시뮬레이터</title>
+  <meta name="description" content="Alpha Space Data Analytics 공식 사용설명서. 21종 확률 분포 인터랙티브 시뮬레이션, AIC/BIC 기반 자동 분포 적합 및 5종 과학적 진단, 유의수준 기각역 시각화 및 가설검정 실무 가이드.">
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+  
+  <!-- Modern Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Cosmic Glow Effect -->
+  <div class="cosmic-bg">
+    <div class="cosmic-glow-1"></div>
+    <div class="cosmic-glow-2"></div>
+  </div>
+
+  <!-- Sticky Top Navigation -->
+  <header class="navbar">
+    <a href="#" class="nav-brand">
+      <img src="assets/app_icon.png" alt="AlphaSpace Logo" class="nav-logo">
+      <span class="nav-title">Alpha Space</span>
+      <span class="nav-badge">v2.1.0 Enterprise</span>
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="#simulator" class="active">🎮 웹 시뮬레이터</a></li>
+      <li><a href="#overview">🚀 개요</a></li>
+      <li><a href="#tab1-sim">📊 분포 시뮬레이션</a></li>
+      <li><a href="#tab2-fit">🎯 데이터 적합</a></li>
+      <li><a href="#tab3-hypo">🧪 가설 검정</a></li>
+      <li><a href="#tab4-kb">📚 지식 사전</a></li>
+      <li><a href="#build-guide">💻 독립 실행본 빌드</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="테마 전환">☀️</button>
+      <a href="https://github.com/ComRAONworlD/AlphaSpace" target="_blank" class="btn-secondary">GitHub</a>
+      <a href="#build-guide" class="btn-primary">📥 실행본 안내</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span>⚡ 21종 확률 분포 & 머신러닝 데이터 적합 & 가설 검정 연구소</span>
+      </div>
+      <h1 class="hero-title">
+        데이터의 본질을 꿰뚫는 통계 지능<br>
+        <span class="gradient-text">Alpha Space Data Analytics</span>
+      </h1>
+      <p class="hero-desc">
+        복잡한 수식과 파이썬 코딩 없이도, <strong>21종 이상의 확률 분포</strong>를 실시간으로 탐색하고, 
+        실무 데이터를 <strong>AIC/BIC 기준 최적 분포</strong>로 자동 적합하며, 
+        <strong>유의수준 기각역 시각화</strong>를 통해 직관적인 의사결정을 내릴 수 있는 차세대 과학 통계 플랫폼입니다.
+      </p>
+      
+      <div class="hero-buttons">
+        <a href="#simulator" class="btn-primary" style="font-size: 1rem; padding: 0.8rem 1.8rem;">
+          🎮 인터랙티브 웹 시뮬레이터 체험
+        </a>
+        <a href="#overview" class="btn-secondary" style="font-size: 1rem; padding: 0.8rem 1.8rem;">
+          📖 사용자 관점 실전 매뉴얼 읽기
+        </a>
+      </div>
+
+      <!-- Hero Visual Banner Card -->
+      <div class="hero-banner-card">
+        <img src="assets/splash.png" alt="Alpha Space Data Analytics Splash Banner" class="hero-banner-img">
+        <div class="hero-banner-overlay">
+          <div class="overlay-feature">
+            <span class="overlay-icon">📊</span>
+            <div class="overlay-text">
+              <strong>21종 확률 분포 실시간 탐색</strong>
+              <span>연속형 15종 & 이산형 6종 모수 슬라이더</span>
+            </div>
+          </div>
+          <div class="overlay-feature">
+            <span class="overlay-icon">🎯</span>
+            <div class="overlay-text">
+              <strong>최대우도법(MLE) 자동 적합</strong>
+              <span>AIC/BIC 랭킹 및 5종 과학적 진단 플롯</span>
+            </div>
+          </div>
+          <div class="overlay-feature">
+            <span class="overlay-icon">🧪</span>
+            <div class="overlay-text">
+              <strong>18종 가설 검정 & 기각역 시각화</strong>
+              <span>t/F/χ²/z/ANOVA/OLS 다차원 분석</span>
+            </div>
+          </div>
+          <div class="overlay-feature">
+            <span class="overlay-icon">💻</span>
+            <div class="overlay-text">
+              <strong>단일 독립 실행 파일 (No Python)</strong>
+              <span>원클릭 실행 및 1초 스플래시 인트로</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout with Sidebar -->
+  <div class="container">
+    <div class="manual-layout">
+      <!-- Sticky Sidebar Table of Contents -->
+      <aside class="sidebar">
+        <div class="sidebar-heading">목차 (Table of Contents)</div>
+        <ul class="toc-list">
+          <li><a href="#simulator" class="toc-link active"><span class="toc-icon">🎮</span> 웹 시뮬레이터 체험</a></li>
+          <li><a href="#overview" class="toc-link"><span class="toc-icon">🚀</span> 1. 프로그램 개요</a></li>
+          <li><a href="#tab1-sim" class="toc-link"><span class="toc-icon">📊</span> 2. 확률분포 시뮬레이션</a></li>
+          <li><a href="#tab2-fit" class="toc-link"><span class="toc-icon">🎯</span> 3. 데이터 적합 & 진단</a></li>
+          <li><a href="#tab3-hypo" class="toc-link"><span class="toc-icon">🧪</span> 4. 가설 검정 및 분석</a></li>
+          <li><a href="#tab4-kb" class="toc-link"><span class="toc-icon">📚</span> 5. 통계 지식 & 수식 사전</a></li>
+          <li><a href="#scenarios" class="toc-link"><span class="toc-icon">💼</span> 6. 실무 적용 시나리오</a></li>
+          <li><a href="#build-guide" class="toc-link"><span class="toc-icon">💻</span> 7. 독립 실행본 빌드 가이드</a></li>
+          <li><a href="#faq" class="toc-link"><span class="toc-icon">❓</span> 8. 자주 묻는 질문 (FAQ)</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Documentation Content -->
+      <main class="content-area">
+        <!-- Live Web Simulator Section -->
+        <section id="simulator" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Hands-on Web Experience</span>
+            <h2 class="section-title">🎮 인터랙티브 웹 시뮬레이터 (Live Simulator)</h2>
+            <p class="section-lead">실제 AlphaSpace 데스크톱 프로그램의 3대 핵심 분석 엔진을 웹 브라우저에서 즉시 체험해보세요.</p>
+          </div>
+
+          <div class="simulator-box">
+            <!-- Simulator Tab Selector -->
+            <div class="sim-tabs-header">
+              <button class="sim-tab-btn active" data-tab="tab-sim-content">📊 확률분포 시뮬레이터</button>
+              <button class="sim-tab-btn" data-tab="tab-fit-content">🎯 데이터 적합 & Q-Q 진단</button>
+              <button class="sim-tab-btn" data-tab="tab-hypo-content">🧪 가설 검정 기각역 실험실</button>
+            </div>
+
+            <!-- Tab 1: Live Distribution Simulator -->
+            <div id="tab-sim-content" class="sim-tab-content active">
+              <div class="sim-grid">
+                <div class="sim-control-panel">
+                  <div class="sim-control-group">
+                    <label for="simDistSelect">분포 종류 선택:</label>
+                    <select id="simDistSelect" class="sim-select">
+                      <option value="norm">정규분포 (Normal)</option>
+                      <option value="weibull">와이불분포 (Weibull)</option>
+                      <option value="expon">지수분포 (Exponential)</option>
+                      <option value="lognorm">로그정규분포 (Lognormal)</option>
+                      <option value="poisson">포아송분포 (Poisson, 이산형)</option>
+                    </select>
+                  </div>
+
+                  <div class="sim-control-group">
+                    <div class="slider-container">
+                      <div class="slider-header">
+                        <span id="simP1Label">평균 (μ)</span>
+                        <span class="slider-val" id="simP1Val">0</span>
+                      </div>
+                      <input type="range" id="simP1Slider" class="sim-slider">
+                    </div>
+
+                    <div class="slider-container" id="simP2Group">
+                      <div class="slider-header">
+                        <span id="simP2Label">표준편차 (σ)</span>
+                        <span class="slider-val" id="simP2Val">1.5</span>
+                      </div>
+                      <input type="range" id="simP2Slider" class="sim-slider">
+                    </div>
+                  </div>
+
+                  <div class="sim-control-group">
+                    <label for="simViewSelect">시각화 모드:</label>
+                    <select id="simViewSelect" class="sim-select">
+                      <option value="pdf">확률밀도함수 (PDF / PMF)</option>
+                      <option value="cdf">누적확률분포함수 (CDF)</option>
+                    </select>
+                  </div>
+
+                  <button id="simSampleBtn" class="btn-secondary" style="width: 100%; justify-content: center;">
+                    🎲 몬테카를로 표본 추출 (N=500)
+                  </button>
+                </div>
+
+                <div class="chart-wrapper">
+                  <canvas id="simCanvas" class="chart-canvas"></canvas>
+                  
+                  <div class="stat-pills">
+                    <div class="stat-pill">
+                      <div class="stat-pill-label">기댓값 E[X]</div>
+                      <div class="stat-pill-val" id="simStatMean">-</div>
+                    </div>
+                    <div class="stat-pill">
+                      <div class="stat-pill-label">분산 Var(X)</div>
+                      <div class="stat-pill-val" id="simStatVar">-</div>
+                    </div>
+                    <div class="stat-pill">
+                      <div class="stat-pill-label">표준편차 σ</div>
+                      <div class="stat-pill-val" id="simStatStd">-</div>
+                    </div>
+                    <div class="stat-pill">
+                      <div class="stat-pill-label">왜도 (Skew)</div>
+                      <div class="stat-pill-val" id="simStatSkew">-</div>
+                    </div>
+                    <div class="stat-pill">
+                      <div class="stat-pill-label">첨도 (Kurt)</div>
+                      <div class="stat-pill-val" id="simStatKurt">-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Live Data Fitting Simulator -->
+            <div id="tab-fit-content" class="sim-tab-content">
+              <div class="sim-grid">
+                <div class="sim-control-panel">
+                  <div class="sim-control-group">
+                    <label for="fitPresetSelect">실무 데이터셋 선택:</label>
+                    <select id="fitPresetSelect" class="sim-select">
+                      <option value="weibull">부품 가속 수명 시험 (Weibull 타겟, n=80)</option>
+                      <option value="normal">학생 표준 시험 성적 (Normal 타겟, n=60)</option>
+                    </select>
+                  </div>
+
+                  <div class="callout callout-info" style="margin: 0;">
+                    <strong>💡 AIC/BIC 랭킹 시스템</strong><br>
+                    AIC(아카이케 정보 기준) 값이 가장 작은 모형이 최적합 분포로 자동 추천됩니다.
+                  </div>
+
+                  <table class="styled-table" style="margin: 0; font-size: 0.82rem;">
+                    <thead>
+                      <tr>
+                        <th>순위</th>
+                        <th>분포</th>
+                        <th>AIC</th>
+                        <th>BIC</th>
+                        <th>p-val</th>
+                        <th>판정</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fitRankingTableBody">
+                      <!-- Dynamic Rows -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="chart-wrapper">
+                  <canvas id="fitCanvas" class="chart-canvas"></canvas>
+                  <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-align: center;">
+                    * 붉은 점선(이론적 45도 직선)에 관측 데이터가 밀착할수록 해당 분포에 잘 적합함을 증명합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Live Hypothesis Testing Lab -->
+            <div id="tab-hypo-content" class="sim-tab-content">
+              <div class="sim-grid">
+                <div class="sim-control-panel">
+                  <div class="sim-control-group">
+                    <label for="hypoTestSelect">가설 검정 모형:</label>
+                    <select id="hypoTestSelect" class="sim-select">
+                      <option value="welch">신약 임상시험 혈압감소 효과 (독립 2표본 Welch t-검정)</option>
+                    </select>
+                  </div>
+
+                  <div class="sim-control-group">
+                    <div class="slider-container">
+                      <div class="slider-header">
+                        <span>유의수준 (α, Significance Level)</span>
+                        <span class="slider-val" id="hypoAlphaVal">0.050</span>
+                      </div>
+                      <input type="range" id="hypoAlphaSlider" min="0.005" max="0.150" step="0.005" value="0.050" class="sim-slider">
+                    </div>
+                  </div>
+
+                  <div id="hypoDecisionBadge" class="callout callout-tip" style="margin: 0;">
+                    <!-- Dynamic decision content -->
+                  </div>
+                </div>
+
+                <div class="chart-wrapper">
+                  <canvas id="hypoCanvas" class="chart-canvas"></canvas>
+                  <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-align: center;">
+                    * 붉은 음영 영역: <strong>기각역 (Rejection Region)</strong>. 관측 검정통계량(검은 선)이 붉은 영역에 진입하면 귀무가설 H0이 기각됩니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Chapter 1: Program Overview -->
+        <section id="overview" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 1</span>
+            <h2 class="section-title">🚀 프로그램 개요 & 시작하기</h2>
+            <p class="section-lead">Alpha Space Data Analytics는 통계학자, 데이터 사이언티스트, 품질 관리 엔지니어, 연구원을 위해 설계된 올인원 통계 플랫폼입니다.</p>
+          </div>
+
+          <div class="grid-3">
+            <div class="glass-card">
+              <div class="card-icon">⚡</div>
+              <h3 class="card-title">1초 스플래시 인트로</h3>
+              <p class="card-desc">프로그램을 실행하면 Alpha Space 특유의 코스믹 감성 브랜딩 이미지가 1초간 표시된 후 메인 화면이 부드럽게 펼쳐집니다.</p>
+            </div>
+            <div class="glass-card">
+              <div class="card-icon">🌗</div>
+              <h3 class="card-title">스마트 다크/라이트 테마</h3>
+              <p class="card-desc">사용자 OS 환경 설정에 맞춰 최적의 다크/라이트 모드를 자동 적용하며, 상단 선택기로 실시간 전환할 수 있습니다.</p>
+            </div>
+            <div class="glass-card">
+              <div class="card-icon">📦</div>
+              <h3 class="card-title">단일 무설치 실행파일 (.exe)</h3>
+              <p class="card-desc">복잡한 Python 가상환경 구축이나 패키지 설치 없이 USB나 로컬 PC에서 <code>AlphaSpace.exe</code>를 더블클릭하여 바로 사용합니다.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-info">
+            <strong>📌 3분할 탭 워크플로우 구성</strong><br>
+            <ul>
+              <li><strong>탭 1: 📊 확률 분포 인터랙티브 시뮬레이션</strong> - 21종 수식 탐색, 실시간 모수 슬라이더, 몬테카를로 샘플링, 분위수 계산기</li>
+              <li><strong>탭 2: 🎯 데이터 적합 (Data Fitting & Diagnostics)</strong> - CSV/Excel 업로드, MLE 추정, AIC/BIC 순위, Q-Q/P-P/잔차 진단</li>
+              <li><strong>탭 3: 🧪 가설 검정 및 통계 분석 (Hypothesis Testing)</strong> - 18종 검정, 기각역 동적 시각화, Cohen's d 효과크기, 파이썬 코드 생성</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Chapter 2: Simulation Tab -->
+        <section id="tab1-sim" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 2</span>
+            <h2 class="section-title">📊 확률 분포 인터랙티브 시뮬레이션 완벽 가이드</h2>
+            <p class="section-lead">이론적 분포의 형태 변화를 마우스 슬라이더 조작 하나로 직관적으로 체감할 수 있는 실시간 시각화 연구소입니다.</p>
+          </div>
+
+          <div class="screenshot-container">
+            <div class="window-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span class="window-title">Alpha Space - [탭 1: 확률 분포 인터랙티브 시뮬레이션] 실제 구동 화면</span>
+            </div>
+            <img src="assets/screen_sim_tab.png" alt="Simulation Tab Real UI" class="screenshot-img">
+            <div class="screenshot-caption">▲ 실제 프로그램에서 정규분포(Normal)의 평균과 표준편차 슬라이더를 조작하고 몬테카를로 표본 히스토그램을 오버레이한 모습</div>
+          </div>
+
+          <h3 style="font-size: 1.3rem; margin: 1.8rem 0 1rem 0;">💡 주요 기능 및 조작법</h3>
+          <div class="grid-2">
+            <div class="glass-card">
+              <h4 class="card-title">1. 21종 분포 선택기</h4>
+              <p class="card-desc">연속형 15종(정규, 와이불, 지수, 감마, 베타, t, F, 카이제곱, 코시, 라플라스 등)과 이산형 6종(이항, 포아송, 기하, 음이항, 초기하, 이산균일)을 드롭다운에서 선택할 수 있습니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">2. 60fps 무지연 모수 슬라이더</h4>
+              <p class="card-desc">슬라이더를 드래그하는 즉시 20ms 디바운스 엔진이 동작하여 끊김 없이 확률밀도곡선(PDF)이 실시간 변형됩니다. 우측 입력창에 정밀 숫자를 직접 타이핑할 수도 있습니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">3. 몬테카를로 표본 추출기</h4>
+              <p class="card-desc">N=100부터 10,000개까지의 난수를 이론 분포로부터 추출하여 히스토그램으로 오버레이합니다. 대수의 법칙(LLN)에 따라 표본수가 커질수록 이론 곡선에 수렴하는 과정을 시각적으로 확인합니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">4. 확률 및 분위수 계산기</h4>
+              <p class="card-desc">특정 X 값을 입력하면 누적확률 $P(X \le x)$이 계산되어 곡선 아래에 붉은 음영으로 칠해지며, 반대로 누적확률 0.95를 입력하면 상위 5% 임계 분위수가 역산됩니다.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 3: Fitting Tab -->
+        <section id="tab2-fit" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 3</span>
+            <h2 class="section-title">🎯 데이터 적합 (Data Fitting & Diagnostics) 완벽 가이드</h2>
+            <p class="section-lead">보유한 관측 데이터가 어떤 통계 분포를 따르는지 과학적으로 규명하고, 5종의 전문 진단 차트로 신뢰성을 검증합니다.</p>
+          </div>
+
+          <div class="screenshot-container">
+            <div class="window-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span class="window-title">Alpha Space - [탭 2: 데이터 적합 및 진단 플롯] 실제 구동 화면</span>
+            </div>
+            <img src="assets/screen_fit_tab.png" alt="Fitting Tab Real UI" class="screenshot-img">
+            <div class="screenshot-caption">▲ 부품 수명 시험 데이터에 대해 후보 분포들을 동시 적합하여 AIC 랭킹 1위 와이불분포가 자동 선정된 모습</div>
+          </div>
+
+          <h3 style="font-size: 1.3rem; margin: 1.8rem 0 1rem 0;">🔬 5대 과학적 진단 플롯 (Diagnostic Plots)</h3>
+          <div class="grid-2">
+            <div class="glass-card">
+              <h4 class="card-title">① PDF / 히스토그램 오버레이</h4>
+              <p class="card-desc">실제 데이터의 관측 도수 히스토그램 위에 추정된 최적 분포 곡선 및 2위/3위 후보 곡선을 겹쳐 그려 육안 적합도를 평가합니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">② 정규 / 분포 Q-Q 플롯 (Quantile-Quantile)</h4>
+              <p class="card-desc">이론적 분위수와 관측 데이터 분위수를 1:1 매핑하여 45도 기준선과의 일치도를 확인합니다. 꼬리 부분의 왜곡(두꺼운 꼬리, 첨도)을 직관적으로 감지합니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">③ P-P 플롯 (Probability-Probability)</h4>
+              <p class="card-desc">경험적 누적확률과 이론적 누적확률을 비교하여 중심부 적합도를 정밀하게 점검합니다.</p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">④ 경험적 CDF vs 이론 CDF</h4>
+              <p class="card-desc">데이터의 계단형 누적분포함수와 추정 모형의 연속 누적곡선을 비교하여 Kolmogorov-Smirnov 검정 통계량의 최대 편차 지점을 파악합니다.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-tip">
+            <strong>📋 실무 팁: AIC(Akaike Information Criterion) 해석 기준</strong><br>
+            AIC는 모형의 적합도(Log-Likelihood)와 모수 개수(과적합 페널티)를 동시에 고려합니다.
+            후보 분포 간의 $\Delta \text{AIC} = \text{AIC}_i - \text{AIC}_{\text{min}}$가 2 미만이면 두 모형 모두 유력한 후보이며, 10 이상 차이나면 하위 모형은 기각됩니다.
+          </div>
+        </section>
+
+        <!-- Chapter 4: Hypothesis Testing Tab -->
+        <section id="tab3-hypo" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 4</span>
+            <h2 class="section-title">🧪 가설 검정 및 통계 분석 (Hypothesis Testing) 완벽 가이드</h2>
+            <p class="section-lead">A/B 테스트, 신약 효과 검증, 공정 개선 전후 비교, 마케팅 다중 회귀분석까지 18종의 가설 검정을 제공합니다.</p>
+          </div>
+
+          <div class="screenshot-container">
+            <div class="window-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span class="window-title">Alpha Space - [탭 3: 가설 검정 연구소] 실제 구동 화면</span>
+            </div>
+            <img src="assets/screen_hypo_tab.png" alt="Hypothesis Tab Real UI" class="screenshot-img">
+            <div class="screenshot-caption">▲ 신약 투약 전후 혈압 강하 데이터에 대해 일표본 t-검정을 수행하고 표본분포 상의 기각역과 관측 통계량을 시각화한 모습</div>
+          </div>
+
+          <h3 style="font-size: 1.3rem; margin: 1.8rem 0 1rem 0;">🎯 3단계 직관적 의사결정 프로세스</h3>
+          <div class="grid-3">
+            <div class="glass-card">
+              <div class="card-icon">1️⃣</div>
+              <h4 class="card-title">가설 수립 & 대립가설 선택</h4>
+              <p class="card-desc">귀무가설($H_0$)과 대립가설($H_1$)을 양측 검정($\neq$), 우측 단측 검정($>$), 좌측 단측 검정($<$) 중 마우스 클릭으로 선택합니다.</p>
+            </div>
+            <div class="glass-card">
+              <div class="card-icon">2️⃣</div>
+              <h4 class="card-title">동적 α 슬라이더 & 기각역</h4>
+              <p class="card-desc">유의수준 $\alpha$(0.01~0.10) 슬라이더를 움직이면 이론 표본분포(t, F, χ², z)의 붉은색 기각역 면적이 실시간으로 팽창/수축합니다.</p>
+            </div>
+            <div class="glass-card">
+              <div class="card-icon">3️⃣</div>
+              <h4 class="card-title">자동 결론 & 효과 크기</h4>
+              <p class="card-desc">p-value와 $\alpha$를 자동 비교하여 "🔴 $H_0$ 기각 (유의미한 차이 확인)" 또는 "🔵 $H_0$ 채택" 배지를 부여하며, Cohen's d나 $R^2$ 효과크기를 안내합니다.</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <button class="copy-code-btn">복사</button>
+            <pre><code># AlphaSpace가 자동 생성해주는 파이썬 재현 코드 예시
+import pandas as pd, numpy as np, scipy.stats as stats
+
+# [독립표본 t-검정 (Welch, 양측)]
+d1 = df['대조군_혈압감소'].dropna()
+d2 = df['신약군_혈압감소'].dropna()
+stat, p = stats.ttest_ind(d1, d2, equal_var=False, alternative='two-sided')
+print(f"t-statistic = {stat:.4f}, p-value = {p:.4e}")</code></pre>
+          </div>
+        </section>
+
+        <!-- Chapter 5: Knowledge Hub -->
+        <section id="tab4-kb" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 5</span>
+            <h2 class="section-title">📚 통계 지식 & 수식 사전 (Knowledge Hub) 가이드</h2>
+            <p class="section-lead">상단 메뉴바의 <strong>통계 지식 & 수식 사전</strong> 버튼을 클릭하면 21종 분포의 확률밀도함수(PDF), 누적분포함수(CDF), 모수 특성, 실무 활용처를 집약한 사전 다이얼로그가 열립니다.</p>
+          </div>
+
+          <div class="screenshot-container">
+            <div class="window-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span class="window-title">Alpha Space - [통계 지식 & 수식 사전 다이얼로그] 실제 구동 화면</span>
+            </div>
+            <img src="assets/screen_knowledge_hub.png" alt="Knowledge Hub Real UI" class="screenshot-img">
+            <div class="screenshot-caption">▲ 와이불분포(Weibull)의 수식, 욕조 곡선(Bathtub curve), 고장률 함수 및 NIST 공식 레퍼런스 안내</div>
+          </div>
+        </section>
+
+        <!-- Chapter 6: Practical Scenarios -->
+        <section id="scenarios" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 6</span>
+            <h2 class="section-title">💼 실무 적용 시나리오 (Practical Walkthroughs)</h2>
+            <p class="section-lead">실제 현업 프로젝트에서 Alpha Space를 어떻게 활용할 수 있는지 대표 시나리오를 안내합니다.</p>
+          </div>
+
+          <div class="grid-2">
+            <div class="glass-card">
+              <h3 class="card-title">시나리오 A: 전자부품 신뢰성 시험 와이불 분석</h3>
+              <p class="card-desc">
+                1. [탭 2: 데이터 적합]으로 이동하여 부품 가속수명 시험 고장시간 데이터를 붙여넣습니다.<br>
+                2. 자동 적합을 실행하여 AIC 기준 와이불분포가 1위로 선정되는지 확인합니다.<br>
+                3. 추정된 형태모수 $k=1.8$인 경우 마모 고장(Wear-out failure) 단계임을 판단하고 예방보전 주기(B10 수명)를 도출합니다.
+              </p>
+            </div>
+            <div class="glass-card">
+              <h3 class="card-title">시나리오 B: 이커머스 신규 결제 UI A/B 테스트</h3>
+              <p class="card-desc">
+                1. [탭 3: 가설 검정]으로 이동하여 기존 UI군과 신규 UI군의 객단가 데이터를 로드합니다.<br>
+                2. 검정 종류에서 '독립표본 t-검정(Welch)'을 선택하고 대립가설을 '신규군 > 대조군 (우측 단측)'으로 설정합니다.<br>
+                3. 계산된 p-value가 0.012로 유의수준 $\alpha=0.05$보다 작으므로 신규 결제 UI 배포를 최종 승인합니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 7: Build Guide -->
+        <section id="build-guide" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 7</span>
+            <h2 class="section-title">💻 독립 실행 파일(Standalone .exe) 빌드 및 배포 가이드</h2>
+            <p class="section-lead">PyInstaller를 이용하여 추가 환경 설치 없이 어디서나 구동 가능한 단일 실행 파일 <code>AlphaSpace.exe</code>를 생성하는 방법입니다.</p>
+          </div>
+
+          <div class="glass-card" style="margin-bottom: 1.5rem;">
+            <h3 class="card-title">🚀 원클릭 배치 파일 빌드 (Windows)</h3>
+            <p class="card-desc">프로젝트 루트 디렉터리의 <code>build.bat</code> 스크립트를 더블클릭하여 실행하면 모든 과정이 자동으로 완료됩니다.</p>
+            
+            <div class="code-block">
+              <button class="copy-code-btn">복사</button>
+              <pre><code># 1. 터미널(PowerShell 또는 CMD)에서 직접 빌드 시:
+.\build.bat
+
+# 또는 직접 PyInstaller spec 파일을 호출할 경우:
+python -m PyInstaller --noconfirm --clean AlphaSpace.spec</code></pre>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="glass-card">
+              <h4 class="card-title">🛠️ 패키징 최적화 내역</h4>
+              <p class="card-desc">
+                • <code>excludes</code> 옵션을 통해 QtWebEngine, Qt3D, QtQuick 등 불필요한 대형 바이너리(약 180MB)를 배제하여 실행파일 용량과 실행 속도를 대폭 최적화했습니다.<br>
+                • <code>app_icon.ico</code>, <code>splash.png</code> 및 오프라인 매뉴얼(<code>docs/</code>)이 단일 실행본 내부에 자동 번들링됩니다.
+              </p>
+            </div>
+            <div class="glass-card">
+              <h4 class="card-title">🖥️ 시스템 요구사항</h4>
+              <p class="card-desc">
+                • <strong>운영체제:</strong> Windows 10 / Windows 11 (64-bit)<br>
+                • <strong>메모리:</strong> 4GB RAM 이상 권장<br>
+                • <strong>디스플레이:</strong> 1280x800 이상 해상도 (4K 고해상도 Hi-DPI 자동 보정 지원)<br>
+                • <strong>Python 설치:</strong> 전혀 불필요 (독립 실행본 내장)
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 8: FAQ -->
+        <section id="faq" class="manual-section">
+          <div class="section-header">
+            <span class="section-tag">Chapter 8</span>
+            <h2 class="section-title">❓ 자주 묻는 질문 (FAQ)</h2>
+            <p class="section-lead">사용자들이 가장 자주 묻는 질문과 해결책을 정리했습니다.</p>
+          </div>
+
+          <div class="glass-card" style="margin-bottom: 1rem;">
+            <h4 class="card-title">Q1. 실행할 때 백신(Windows Defender 등)에서 경고가 뜨는데 안전한가요?</h4>
+            <p class="card-desc">A. 네, 완전히 안전합니다. 오픈소스 파이썬 코드를 PyInstaller로 단일 실행본(.exe)으로 패키징할 때 코드 사이닝 인증서가 등록되지 않아 발생하는 일반적인 휴리스틱 오진입니다. '추가 정보' 클릭 후 '실행'을 누르시면 정상 작동합니다.</p>
+          </div>
+
+          <div class="glass-card" style="margin-bottom: 1rem;">
+            <h4 class="card-title">Q2. 한글 폰트가 깨지거나 마이너스(-) 부호가 이상하게 나오지 않나요?</h4>
+            <p class="card-desc">A. AlphaSpace의 <code>utils.py</code> 그래픽 엔진은 윈도우의 <code>맑은 고딕(Malgun Gothic)</code> 폰트를 Matplotlib에 강제 등록하며, <code>axes.unicode_minus = False</code>를 자동 적용하여 한글 및 음수 기호가 완벽하게 렌더링됩니다.</p>
+          </div>
+
+          <div class="glass-card">
+            <h4 class="card-title">Q3. 차트를 논문이나 보고서용 고해상도로 저장할 수 있나요?</h4>
+            <p class="card-desc">A. 네! 모든 탭에 포함된 <strong>차트 이미지 저장</strong> 버튼을 누르면 학술 논문 및 상업용 보고서 규격인 <strong>300 DPI 초고해상도</strong> 벡터/래스터(PNG, PDF, JPG) 파일로 즉시 저장됩니다.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#simulator">웹 시뮬레이터</a>
+        <a href="#overview">프로그램 개요</a>
+        <a href="#tab1-sim">확률분포 시뮬레이션</a>
+        <a href="#tab2-fit">데이터 적합</a>
+        <a href="#tab3-hypo">가설 검정</a>
+        <a href="#build-guide">독립실행본 빌드</a>
+        <a href="https://github.com/ComRAONworlD/AlphaSpace" target="_blank">GitHub Repository</a>
+      </div>
+      <p>© 2026 Alpha Space Data Analytics (ComRAONworlD). Released under the MIT License.</p>
+      <p style="margin-top: 0.4rem; font-size: 0.8rem; color: var(--text-muted);">
+        Powered by PySide6 (Qt for Python), NumPy, SciPy, Matplotlib, Statsmodels & Pandas.
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

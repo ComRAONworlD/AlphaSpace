@@ -1,34 +1,35 @@
 # 🌌 AlphaSpace (알파스페이스)
 ### 차세대 통계 확률 분포 인터랙티브 시뮬레이션 및 데이터 분석 도구
-> **Interactive Probability Distributions Simulation, Distribution Fitting & Hypothesis Testing Platform**
+> **Interactive Probability Distributions Simulation, Data Fitting & Hypothesis Testing Platform**
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Version"/>
+  <img src="https://img.shields.io/badge/Version-v2.1.0_Enterprise-00F2FE?style=for-the-badge" alt="Version"/>
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Version"/>
   <img src="https://img.shields.io/badge/GUI-PySide6%20(Qt6)-41CD52?style=for-the-badge&logo=qt&logoColor=white" alt="PySide6 GUI"/>
-  <img src="https://img.shields.io/badge/SciPy-1.11+-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy"/>
-  <img src="https://img.shields.io/badge/NumPy-1.25+-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy"/>
-  <img src="https://img.shields.io/badge/Pandas-2.0+-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas"/>
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows"/>
+  <img src="https://img.shields.io/badge/SciPy-1.15+-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy"/>
+  <img src="https://img.shields.io/badge/Docs-GitHub_Pages-4FACFE?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Pages Docs"/>
   <img src="https://img.shields.io/badge/Package-Single%20Standalone%20EXE-FF6F00?style=for-the-badge" alt="Standalone"/>
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License"/>
 </p>
+
+> 🌐 **[AlphaSpace 공식 사용자 매뉴얼 & 인터랙티브 웹 시뮬레이터 바로가기 (GitHub Pages)](https://comraonworld.github.io/AlphaSpace/)**  
+> *프로그램 설치 없이 웹 브라우저에서 21종 확률 분포, AIC 적합, 가설 검정 기각역을 즉시 시뮬레이션해 보세요.*
 
 ---
 
 ## 📖 목차 (Table of Contents)
 - [프로젝트 개요 (Overview)](#-프로젝트-개요-overview)
 - [핵심 주요 기능 (Key Features)](#-핵심-주요-기능-key-features)
-  - [1. 확률 분포 인터랙티브 시뮬레이션 (Simulation)](#1-확률-분포-인터랙티브-시뮬레이션-simulation)
-  - [2. 데이터 분포 적합 & AIC/BIC 랭킹 (Distribution Fitting)](#2-데이터-분포-적합--aicbic-랭킹-distribution-fitting)
-  - [3. 가설 검정 및 기각역 동적 시각화 (Hypothesis Testing)](#3-가설-검정-및-기각역-동적-시각화-hypothesis-testing)
-  - [4. 통계 지식 허브 & NIST 레퍼런스 (Knowledge Hub)](#4-통계-지식-허브--nist-레퍼런스-knowledge-hub)
-  - [5. 현대적인 UI/UX & 다크/라이트 테마](#5-현대적인-uiux--다크라이트-테마)
+  - [1. 1초 스플래시 인트로 & 프리미엄 브랜딩](#1-1초-스플래시-인트로--프리미엄-브랜딩)
+  - [2. 확률 분포 인터랙티브 시뮬레이션 (Simulation)](#2-확률-분포-인터랙티브-시뮬레이션-simulation)
+  - [3. 데이터 분포 적합 & AIC/BIC 랭킹 (Distribution Fitting)](#3-데이터-분포-적합--aicbic-랭킹-distribution-fitting)
+  - [4. 가설 검정 및 기각역 동적 시각화 (Hypothesis Testing)](#4-가설-검정-및-기각역-동적-시각화-hypothesis-testing)
+  - [5. 통계 지식 허브 & NIST 레퍼런스 (Knowledge Hub)](#5-통계-지식-허브--nist-레퍼런스-knowledge-hub)
+  - [6. 현대적인 UI/UX & 다크/라이트 테마](#6-현대적인-uiux--다크라이트-테마)
 - [지원 통계 분포 목록 (Supported Distributions)](#-지원-통계-분포-목록-supported-distributions)
 - [지원 통계 검정 목록 (Supported Hypothesis Tests)](#-지원-통계-검정-목록-supported-hypothesis-tests)
 - [프로젝트 구조 (Repository Structure)](#-프로젝트-구조-repository-structure)
 - [시작하기 (Getting Started)](#-시작하기-getting-started)
-  - [방법 1: 무설치 단일 실행 파일 (Recommended)](#방법-1-무설치-단일-실행-파일-recommended)
-  - [방법 2: 소스 코드 직접 실행 (Python 개발 환경)](#방법-2-소스-코드-직접-실행-python-개발-환경)
 - [단일 실행 파일 빌드 방법 (Build Guide)](#-단일-실행-파일-빌드-방법-build-guide)
 - [기술 스택 (Tech Stack)](#-기술-스택-tech-stack)
 - [라이선스 (License)](#-라이선스-license)
@@ -134,18 +135,26 @@
 ## 📂 프로젝트 구조 (Repository Structure)
 
 ```plaintext
-statistics_distributions/
+AlphaSpace/
 │
-├── main.py                   # 메인 윈도우 UI, 메뉴바, 테마 엔진 및 프로그램 진입점
-├── simulation_tab.py         # 탭 1: 확률 분포 시뮬레이션 및 구간 확률 계산기
-├── fitting_tab.py            # 탭 2: 데이터 분포 피팅, AIC/BIC 랭킹, Q-Q 플롯
+├── main.py                   # 메인 윈도우 UI, 1초 스플래시 인트로, 테마 엔진 및 진입점
+├── simulation_tab.py         # 탭 1: 확률 분포 인터랙티브 시뮬레이션 및 분위수 계산기
+├── fitting_tab.py            # 탭 2: 데이터 분포 피팅, AIC/BIC 랭킹, 5종 진단 플롯
 ├── hypothesis_tab.py         # 탭 3: 가설 검정 및 동적 기각역 시각화 리포트
 ├── core_distributions.py     # 21종 확률 분포 모수 맵핑 및 이론 통계량 엔진
 ├── knowledge_base.py         # 통계 수식 사전 데이터 및 KnowledgeHub 다이얼로그
 ├── utils.py                  # Matplotlib 폰트 설정 및 한글 폰트(맑은 고딕 등) 호환 유틸리티
+├── create_icon.py            # 멀티 해상도 아이콘 생성 및 리소스 검증 스크립트
 │
-├── app_icon.ico              # Windows 애플리케이션 고해상도 실행 아이콘
-├── app_icon.png              # UI 및 다이얼로그용 리소스 아이콘
+├── splash.png                # 1초 스플래시 스크린 브랜딩 이미지 (Alpha Space Data Analytics)
+├── app_icon.ico              # Windows 애플리케이션 멀티 해상도(16~256px) 실행 아이콘
+├── app_icon.png              # UI 및 다이얼로그용 리소스 아이콘 (512x512)
+│
+├── docs/                     # GitHub Pages 공식 인터랙티브 웹 사용자 매뉴얼
+│   ├── index.html            # 웹 매뉴얼 및 인터랙티브 웹 시뮬레이터 (Live Simulator)
+│   ├── style.css             # 글래스모피즘 & 다크/라이트 테마 웹 스타일시트
+│   ├── app.js                # 웹 캔버스 차트 렌더링 및 통계 계산 엔진
+│   └── assets/               # 웹 매뉴얼 이미지 및 실제 프로그램 구동 스크린샷
 │
 ├── requirements.txt          # Python 의존성 패키지 명세
 ├── AlphaSpace.spec           # PyInstaller 단일 독립 실행 파일(Onefile) 빌드 스펙

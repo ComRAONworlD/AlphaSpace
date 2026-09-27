@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
     QFileDialog, QSlider, QCheckBox, QScrollArea, QFrame, QGridLayout, QToolTip,
     QSplitter
 )
-from PySide6.QtCore import Qt, QUrl
+from PySide6.QtCore import Qt, QUrl, QTimer
 from PySide6.QtGui import QDesktopServices
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -18,6 +18,12 @@ class SimulationTab(QWidget):
         super().__init__()
         self.sample_data = None
         self.updating_params = False
+        
+        # 슬라이더 조작 시 60fps 부드러운 렌더링을 위한 디바운스 타이머 (20ms)
+        self.render_timer = QTimer(self)
+        self.render_timer.setSingleShot(True)
+        self.render_timer.timeout.connect(self._do_plot_chart)
+        
         self.setup_ui()
 
     def setup_ui(self):
@@ -458,7 +464,14 @@ class SimulationTab(QWidget):
         self.sample_data = None
         self.plot_chart()
         
-    def plot_chart(self):
+    def plot_chart(self, immediate=False):
+        if immediate or not self.chk_live_update.isChecked():
+            self.render_timer.stop()
+            self._do_plot_chart()
+        else:
+            self.render_timer.start(20)
+
+    def _do_plot_chart(self):
         d_type = self.type_combo.currentData()
         dist_key = self.dist_combo.currentData()
         if not dist_key: return
@@ -536,10 +549,11 @@ class SimulationTab(QWidget):
             plot_max = min(support_max, max_x + margin)
 
             if prob_mark is not None and calc_dir != "equal":
+                prob_mark_clipped = min(max(prob_mark, 1e-5), 1.0 - 1e-5)
                 if calc_dir == "less":
-                    x_mark = dist.ppf(prob_mark)
+                    x_mark = dist.ppf(prob_mark_clipped)
                 elif calc_dir == "greater":
-                    x_mark = dist.isf(prob_mark)
+                    x_mark = dist.isf(prob_mark_clipped)
 
             param_str = ", ".join([f"{p[0].split(' (')[0]}={v:.2g}" for p, v in zip(dist_info["params"], raw_params)])
 
@@ -656,7 +670,7 @@ class SimulationTab(QWidget):
                 target_ax.legend(loc='lower right', fontsize=9)
 
             axes[-1].set_xlabel("X (확률변수)")
-            self.canvas.draw()
+            self.canvas.draw_idle()
             self.export_btn.setEnabled(True)
 
         except Exception as e:

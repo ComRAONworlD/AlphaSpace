@@ -530,11 +530,28 @@ class StatApp(QMainWindow):
         act_scipy.triggered.connect(lambda: QDesktopServices.openUrl(QUrl("https://docs.scipy.org/doc/scipy/reference/stats.html")))
         kb_menu.addAction(act_scipy)
         
-        # 정보 메뉴
+        # 도움말 메뉴
         help_menu = menubar.addMenu("도움말(&H)")
+        
+        act_manual = QAction("📖 상세 사용 설명서 (인터랙티브 웹 매뉴얼)", self)
+        act_manual.triggered.connect(self.open_user_manual)
+        help_menu.addAction(act_manual)
+
+        help_menu.addSeparator()
+
         act_about = QAction("프로그램 정보(&A)", self)
         act_about.triggered.connect(self.show_about)
         help_menu.addAction(act_about)
+
+    def open_user_manual(self):
+        docs_file = resource_path(os.path.join("docs", "index.html"))
+        if not os.path.exists(docs_file):
+            docs_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs", "index.html")
+        
+        if os.path.exists(docs_file):
+            QDesktopServices.openUrl(QUrl.fromLocalFile(os.path.abspath(docs_file)))
+        else:
+            QDesktopServices.openUrl(QUrl("https://comraonworld.github.io/AlphaSpace/"))
 
     def open_global_knowledge_hub(self):
         dlg = KnowledgeHubDialog(self)
@@ -544,11 +561,12 @@ class StatApp(QMainWindow):
         QMessageBox.about(
             self,
             "프로그램 정보",
-            "<h3>통계 확률 분포 및 분석 도구 (AlphaSpace)</h3>"
-            "<p>21종 이상의 연속형/이산형 확률 분포 시뮬레이션, 실시간 모수 슬라이더, "
-            "몬테카를로 표본 추출, 데이터 적합(AIC/BIC 랭킹 & Q-Q 플롯), "
-            "유의수준 기각역 시각화 및 가설검정 리포트를 제공합니다.</p>"
-            "<p><b>버전:</b> 2.0.0 (Interactive Edition)</p>"
+            "<h3>통계 확률 분포 및 데이터 분석 도구 (AlphaSpace)</h3>"
+            "<p><b>Alpha Space Data Analytics</b>는 21종 이상의 연속형/이산형 확률 분포 시뮬레이션, "
+            "실시간 모수 슬라이더, 몬테카를로 표본 추출, 전문 데이터 적합(AIC/BIC 랭킹 & Q-Q/P-P 플롯), "
+            "유의수준 기각역 시각화 및 가설검정 실무 리포트를 제공하는 통합 분석 플랫폼입니다.</p>"
+            "<p><b>버전:</b> v2.1.0 (Enterprise Analytics Edition)</p>"
+            "<p><b>개발:</b> ComRAONworlD / AlphaSpace</p>"
         )
 
     def on_theme_changed(self, index):
@@ -599,12 +617,17 @@ class StatApp(QMainWindow):
                         if legend:
                             for text in legend.get_texts():
                                 text.set_color(fg_col)
-                    canvas.draw()
+                    canvas.draw_idle()
 
 if __name__ == "__main__":
+    import time
+    from PySide6.QtWidgets import QSplashScreen
+    from PySide6.QtGui import QPixmap, QColor
+    from PySide6.QtCore import QTimer
+
     # Windows 작업 표시줄 전용 아이콘 매핑 ID 등록
     try:
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("AlphaSpace.StatisticsApp.2.0")
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("AlphaSpace.DataAnalytics.2.1")
     except Exception:
         pass
 
@@ -614,6 +637,40 @@ if __name__ == "__main__":
     if os.path.exists(icon_file):
         app.setWindowIcon(QIcon(icon_file))
 
+    # 스플래시 스크린 (Alpha Space Data Analytics 이미지 1초간 표시)
+    splash_file = resource_path("splash.png")
+    if not os.path.exists(splash_file):
+        splash_file = resource_path("splash_screen.png")
+
+    splash = None
+    start_time = time.time()
+
+    if os.path.exists(splash_file):
+        pixmap = QPixmap(splash_file)
+        if not pixmap.isNull():
+            scaled_pixmap = pixmap.scaledToWidth(720, Qt.SmoothTransformation)
+            splash = QSplashScreen(scaled_pixmap, Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
+            splash.showMessage("  🚀 Alpha Space Data Analytics 시작 중...", Qt.AlignBottom | Qt.AlignLeft, QColor("#89DDFF"))
+            splash.show()
+            app.processEvents()
+
+    # 메인 윈도우 초기화
     window = StatApp()
-    window.showMaximized()
+
+    # 정확히 1초(1,000ms) 이상 표시 후 메인 윈도우로 자연스럽게 전환
+    elapsed_ms = (time.time() - start_time) * 1000
+    wait_time = max(0, int(1000 - elapsed_ms))
+
+    def launch_main():
+        if splash:
+            splash.finish(window)
+        window.showMaximized()
+        window.raise_()
+        window.activateWindow()
+
+    if wait_time > 0 and splash:
+        QTimer.singleShot(wait_time, launch_main)
+    else:
+        launch_main()
+
     sys.exit(app.exec())

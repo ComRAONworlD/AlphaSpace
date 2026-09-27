@@ -735,11 +735,13 @@ class FittingTab(QWidget):
         """표 데이터를 설정하고 필요한 경우 자동 적합 트리거"""
         self.is_syncing_data = True
         self.data_table.blockSignals(True)
+        self.data_table.setUpdatesEnabled(False)
         self.data_table.setRowCount(len(data_list))
         for i, val in enumerate(data_list):
             item = QTableWidgetItem(f"{val:g}" if isinstance(val, (int, float, np.number)) else str(val))
             item.setTextAlignment(Qt.AlignCenter)
             self.data_table.setItem(i, 0, item)
+        self.data_table.setUpdatesEnabled(True)
         self.data_table.blockSignals(False)
         
         # 텍스트 창도 동기화
@@ -1149,6 +1151,11 @@ class FittingTab(QWidget):
             self.lbl_fit_status.setText("데이터 부족 (최소 3개 필요)")
             return
 
+        if np.std(data) < 1e-12:
+            self.lbl_fit_status.setText("⚠️ 데이터 분산이 0입니다 (모든 관측치 값이 동일하여 적합 불가)")
+            self.ax2_clear()
+            return
+
         d_type = self.fit_type_combo.currentData()
         self.fitted_results = []
         
@@ -1466,7 +1473,7 @@ class FittingTab(QWidget):
         ax.grid(True, linestyle='--', alpha=0.5)
         ax.legend(fontsize=9, loc='best')
         self.figure2.tight_layout()
-        self.canvas2.draw()
+        self.canvas2.draw_idle()
         self.btn_export_fit.setEnabled(True)
 
     def _plot_continuous_diagnostics(self, ax, data, dist, dist_key, diag_mode, x_mark, calc_dir):
@@ -1660,7 +1667,7 @@ class FittingTab(QWidget):
 
     def ax2_clear(self):
         self.figure2.clear()
-        self.canvas2.draw()
+        self.canvas2.draw_idle()
 
     # ================= [확률 및 분위수 계산기 로직] =================
 
